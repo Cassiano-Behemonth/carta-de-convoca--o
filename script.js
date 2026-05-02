@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 // Once the last line is revealed, start the countdown
                 if (index === lines.length - 1) {
-                    setTimeout(startSelfDestruct, 10000);
+                    setTimeout(startSelfDestruct, 5000);
                 }
             }, index * 800); // Slightly faster for mobile feel
         });
@@ -36,10 +36,10 @@ document.addEventListener('DOMContentLoaded', () => {
         lighter.classList.remove('hidden');
         lighter.classList.add('active');
 
-        // Wait for lighter to move into position
+        // Wait for lighter to move into position (faster now)
         setTimeout(() => {
             burnDossier();
-        }, 1500);
+        }, 600);
     }
 
     function burnDossier() {
