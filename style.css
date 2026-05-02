@@ -269,10 +269,8 @@ body {
     .dossier.open {
         transform: translateX(0) scale(0.9);
     }
-    /* Hide the cover completely when open on mobile to focus on text */
+    /* Ensure the cover animation is visible but allows the dossier to stay centered */
     .dossier.open .cover {
-        opacity: 0;
-        visibility: hidden;
         pointer-events: none;
     }
     .dossier {
