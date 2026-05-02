@@ -1,0 +1,296 @@
+:root {
+    --bg-desk: url('desk.png');
+    --paper-texture: url('paper.png');
+    --accent-color: #8b0000;
+    --typewriter-font: 'Courier Prime', monospace;
+    --folder-color: #4a3728;
+    --folder-inner-color: #e0d1b5;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+}
+
+body {
+    background-color: #1a1a1a;
+    height: 100vh;
+    height: -webkit-fill-available;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    font-family: var(--typewriter-font);
+}
+
+.desk {
+    width: 100vw;
+    height: 100vh;
+    background-image: var(--bg-desk);
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    perspective: 2500px;
+    padding: 20px;
+}
+
+/* Dossier Styling */
+.dossier {
+    width: 90%;
+    max-width: 450px;
+    height: 70vh;
+    max-height: 650px;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+}
+
+/* Shift the whole dossier to the right when open to make space for the cover on the left */
+.dossier.open {
+    transform: translateX(20%);
+}
+
+.dossier.closed .cover {
+    transform: rotateY(0deg);
+}
+
+.dossier.open .cover {
+    transform: rotateY(-170deg);
+}
+
+.cover {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    transform-origin: left;
+    transform-style: preserve-3d;
+    transition: transform 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 5px 15px 15px 5px;
+}
+
+.cover-front, .cover-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: inherit;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.cover-front {
+    background: var(--folder-color);
+    border-left: 8px solid #3d2b1f;
+    box-shadow: 10px 10px 30px rgba(0,0,0,0.5);
+    z-index: 2;
+}
+
+.cover-back {
+    background: var(--folder-inner-color);
+    transform: rotateY(180deg);
+    box-shadow: -10px 10px 30px rgba(0,0,0,0.3);
+    z-index: 1;
+}
+
+.stamp {
+    border: 3px solid var(--accent-color);
+    color: var(--accent-color);
+    padding: 10px 15px;
+    font-size: 2.2rem;
+    font-weight: bold;
+    transform: rotate(-15deg);
+    opacity: 0.8;
+    user-select: none;
+    margin-bottom: 50px;
+    text-align: center;
+}
+
+.click-prompt {
+    color: rgba(255,255,255,0.5);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.8; }
+}
+
+.inside {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: var(--folder-inner-color);
+    top: 0;
+    left: 0;
+    box-shadow: inset 0 0 50px rgba(0,0,0,0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    z-index: 1;
+}
+
+.paper-sheet {
+    width: 95%;
+    height: 95%;
+    background-image: var(--paper-texture);
+    background-size: cover;
+    background-color: #f9f4e8;
+    padding: 30px;
+    box-shadow: 2px 5px 15px rgba(0,0,0,0.3);
+    position: relative;
+    overflow-y: auto;
+    border: 1px solid rgba(0,0,0,0.1);
+}
+
+.letter-content {
+    color: #222;
+    font-size: 1.1rem;
+    line-height: 1.5;
+    width: 100%;
+}
+
+.typewriter {
+    margin-bottom: 15px;
+    opacity: 0;
+}
+
+.typewriter.visible {
+    animation: fadeIn 0.5s forwards;
+}
+
+.highlight {
+    font-weight: bold;
+    color: #000;
+    text-decoration: underline;
+}
+
+.footer {
+    margin-top: 40px;
+    font-style: italic;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+/* Lighter Animation */
+.lighter-container {
+    position: absolute;
+    bottom: -300px;
+    right: 5%;
+    z-index: 100;
+    transition: bottom 1s ease-out;
+}
+
+.lighter-container.active {
+    bottom: 20px;
+}
+
+.lighter-img {
+    width: 150px;
+    filter: drop-shadow(0 0 10px rgba(255,100,0,0.5));
+}
+
+/* Burning Effect */
+.burn-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: black;
+    opacity: 0;
+    pointer-events: none;
+    mix-blend-mode: multiply;
+}
+
+.burning .paper-sheet {
+    animation: burn-paper 3s forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes burn-paper {
+    0% {
+        filter: brightness(1) contrast(1);
+        transform: scale(1);
+    }
+    10% {
+        filter: brightness(1.1) sepia(0.3);
+        box-shadow: inset 0 0 40px rgba(255, 100, 0, 0.5);
+    }
+    30% {
+        filter: url(#burn-filter) brightness(0.8) contrast(1.2);
+    }
+    100% {
+        filter: url(#burn-filter) brightness(0) contrast(2);
+        opacity: 0;
+        transform: scale(0.95);
+    }
+}
+
+/* Ash Particles */
+.ash {
+    position: absolute;
+    background: #333;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 1000;
+}
+
+@keyframes fly-ash {
+    to {
+        transform: translate(calc(var(--x) * 1px), calc(var(--y) * 1px)) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Media Queries */
+@media (max-width: 600px) {
+    .dossier.open {
+        transform: translateX(40%);
+        scale: 0.9;
+    }
+    .dossier {
+        height: 80vh;
+    }
+    .stamp {
+        font-size: 1.8rem;
+    }
+    .letter-content {
+        font-size: 1rem;
+    }
+    .lighter-img {
+        width: 100px;
+    }
+}
+
+@media (orientation: landscape) and (max-height: 500px) {
+    .dossier {
+        height: 90vh;
+        width: 50%;
+    }
+    .inside {
+        padding: 10px;
+    }
+    .dossier.open {
+        transform: translateX(25%);
+    }
+}

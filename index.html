@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dossiê Sigiloso - Agente</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="desk">
+        <div id="dossier" class="dossier closed">
+            <div class="cover">
+                <div class="cover-front">
+                    <div class="stamp">CONFIDENCIAL</div>
+                    <div class="click-prompt">Toque para abrir</div>
+                </div>
+                <div class="cover-back"></div>
+            </div>
+            <div class="inside">
+                <div class="paper-sheet">
+                    <div id="dossier-content" class="letter-content">
+                        <p class="typewriter" id="line1">Atenção, agente.</p>
+                        <p class="typewriter" id="line2">Dirija-se ao pub Porcos.</p>
+                        <p class="typewriter" id="line3">Ao chegar, vá direto ao balcão.</p>
+                        <p class="typewriter" id="line4">Faça o pedido exatamente como descrito:</p>
+                        <p class="typewriter highlight" id="line5">Um Chevette… sem gelo de coco.</p>
+                        <p class="typewriter" id="line6">O contato atende pelo nome de Yago.</p>
+                        <p class="typewriter" id="line7">Ele saberá o que fazer.</p>
+                        <p class="typewriter footer" id="line8">queime apos ler</p>
+                    </div>
+                    <div class="burn-overlay"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="lighter" class="lighter-container hidden">
+            <img src="lighter.png" alt="Isqueiro" class="lighter-img">
+        </div>
+
+        <div id="ash-container"></div>
+    </div>
+
+    <svg width="0" height="0">
+        <filter id="burn-filter">
+            <feTurbulence type="fractalNoise" baseFrequency="0.01 0.1" numOctaves="5" result="noise" />
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="20" />
+        </filter>
+    </svg>
+
+    <script src="script.js"></script>
+</body>
+</html>
