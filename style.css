@@ -267,11 +267,17 @@ body {
 /* Media Queries */
 @media (max-width: 600px) {
     .dossier.open {
-        transform: translateX(15%) scale(0.85);
+        transform: translateX(0) scale(0.9);
+    }
+    /* Hide the cover completely when open on mobile to focus on text */
+    .dossier.open .cover {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
     }
     .dossier {
         width: 95%;
-        height: 80vh;
+        height: 85vh;
     }
     .inside {
         padding: 10px;
@@ -300,7 +306,7 @@ body {
 
 @media (max-width: 400px) {
     .dossier.open {
-        transform: translateX(12%) scale(0.78);
+        transform: translateX(0) scale(0.85);
     }
     .paper-sheet {
         padding: 15px;
